@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %} 
+<a href="{{ url_for('logout') }}">Logout</a>
+<a href="{{ url_for('add_workout') }}">Add Workout</a>
+<h1>Workout History</h1>
+{% for workout in workouts %}
+    <h2>{{ workout.date }}</h2>
+    {% set exercises = workout.exercises.all() %}
+
+    {% for exercise in exercises %}
+
+        <h3>{{ exercise.exercise.name }}</h3>
+
+        {% set sets = exercise.sets.all() %}
+
+        {% for s in sets %}
+            <h4>{{ s.weight }} x {{ s.reps }}</h4>
+        {% endfor %}
+
+    {% endfor %}
+
+{% endfor %}
+{% endblock %}
